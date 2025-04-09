@@ -22,6 +22,9 @@ export default defineConfig((config) => {
       __COMMIT_HASH: JSON.stringify(getGitHash()),
       __APP_VERSION: JSON.stringify(process.env.npm_package_version),
     },
+    server: {
+      allowedHosts: ['boltdiy-production-3ab1.up.railway.app'],
+    },
     build: {
       target: 'esnext',
     },
@@ -46,13 +49,8 @@ export default defineConfig((config) => {
         enforce: 'pre',
         transform(code, id) {
           if (id.endsWith('entry.server.tsx')) {
-            /*
-             * Hack: fix the issue with react-dom/server not being found in electron
-             * Replace the import from 'react-dom/server' with 'react-dom/server.browser', only for electron build
-             */
             return code.replace(/from 'react-dom\/server';?/g, "from 'react-dom/server.browser';");
           }
-
           return undefined;
         },
       },
