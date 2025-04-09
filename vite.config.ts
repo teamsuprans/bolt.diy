@@ -94,6 +94,9 @@ export default defineConfig((config) => {
     build: {
       target: 'esnext',
     },
+    server: {
+      allowedHosts: ['boltdiy-production-3ab1.up.railway.app'],
+    },
     plugins: [
       nodePolyfills({
         include: ['buffer', 'process', 'util', 'stream'],
